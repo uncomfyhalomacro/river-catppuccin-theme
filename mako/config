@@ -1,0 +1,22 @@
+font=VictorMono Nerd Font 13
+default-timeout=5000
+layer=overlay
+anchor=top-right
+width=500
+height=125
+border-radius=4
+border-size=2
+max-icon-size=128
+text-alignment=center
+background-color=#1e1e2e
+text-color=#f5e0dc
+
+[urgency=low]
+border-color=#6e6c7e
+
+[urgency=normal]
+border-color=#d9e0ee
+
+[urgency=high]
+border-color=#f28fad
+

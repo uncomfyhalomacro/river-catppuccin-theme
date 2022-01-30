@@ -1,0 +1,91 @@
+* {
+  font-family: "VictorMono Nerd Font", "Font Awesome 5 Brands Regular", "Arial", "Roboto", "Helvetica", "sans-serif";
+  font-size: 10px;
+}
+
+window#waybar {
+	background-color: transparent;
+}
+
+#backlight,
+#battery,
+#clock,
+#cpu,
+#custom-fans,
+#custom-media,
+#custom-pacman,
+#custom-weather,
+#disk,
+#idle_inhibitor,
+#language,
+#memory,
+#network,
+#pulseaudio,
+#temperature,
+#tray {
+	background-color: #202020;
+  color: #fefefe;
+	border-radius: 6px;
+	border: none;
+	margin: 2px 4px 2px 4px;
+	padding: 0px 8px;
+}
+
+#tags {
+	background-color: #202020;
+  color: #fefefe;
+	border-radius: 6px;
+	border: none;
+	margin: 2px 4px 2px 4px;
+}
+
+#temperature.critical
+#memory {
+	color: #E38C8F;
+}
+
+#cpu {
+	color: #92D2E8;
+}
+
+#disk {
+	color: #F7BE95;
+}
+
+#clock {
+	color: #EFB8CC;
+}
+
+#backlight {
+	color: #F0CEA1;
+}
+
+#pulseaudio {
+	color: #95CCFA;
+}
+
+#custom-media {
+		color: #1DB954;
+}
+
+#custom-pacman {
+	color: #F5E0DC;
+}
+
+
+#tags button {
+  color: #D9E0EE;
+  border: none;
+	padding: 0px 5px 0px 3px;
+}
+
+#tags button.focused {
+  color: #ABE9B3;
+}
+#tags button.focused.occupied {
+  color: #ABE9B3;
+}
+#tags button.occupied {
+  color: #EFB8CC;
+}
+

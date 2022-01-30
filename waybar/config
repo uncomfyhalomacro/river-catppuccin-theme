@@ -1,0 +1,152 @@
+[
+  {
+      "layer": "bottom",
+			"position": "top",
+      "height": 30,
+			"margin": "6px 2px 2px 2px",
+      "modules-left": [
+        "custom/media",
+				"pulseaudio",
+				"backlight",
+				"clock",
+				"custom/weather",
+				"battery"
+      ],
+      "modules-center": [
+        "river/tags",
+      ],
+      "modules-right": [
+				"network",
+        "custom/pacman",
+        "cpu",
+				"temperature",
+        "memory",
+        "disk",
+        "tray"
+
+  		],
+
+      "river/tags": {
+          "num-tags": 5,
+          "tag-labels": [
+            "",
+            "",
+            "",
+            "",
+            "華",
+          ]
+      },
+			"backlight": {
+				 "device": "intel_backlight",
+				 "format": "{percent}% {icon}",
+				 "format-icons": [" ", " "],
+				 "on-scroll-up": "$HOME/.config/waybar/brightnessup.sh",
+				 "on-scroll-down": "$HOME/.config/waybar/brightnessdown.sh"
+      },
+			"pulseaudio": {
+				"format": "{volume}% {icon}",
+				"format-bluetooth": "{volume}% {icon}",
+				"format-muted": "",
+				"format-icons": {
+						 "headphones": "",
+						 "handsfree": "",
+						 "headset": "",
+						 "phone": "",
+						 "portable": "",
+						 "car": "",
+						 "default": [" ", " "]
+				},
+				"on-click": "pavucontrol",
+				"on-scroll-up": "$HOME/.config/waybar/volumeup.sh",
+				"on-scroll-down": "$HOME/.config/waybar/volumedown.sh"
+      },
+      "cpu": {
+        "format": " {usage}%"
+      },
+      "memory": {
+        "format": " {percentage}%"
+      },
+      "disk": {
+          "interval": 20,
+          "format": " {percentage_used:2}%",
+					"path": "/home"
+      },
+			"network": {
+					"format": "{ifname}",
+					"format-wifi": "  {essid} ({signalStrength}%)",
+					"format-ethernet": " {ifname}",
+					"format-disconnected": "", //An empty format will hide the module.
+					"format-disconnected": " ",
+					"tooltip-format": "{ifname}",
+					"tooltip-format-wifi": "  {essid} ({signalStrength}%)",
+					"tooltip-format-ethernet": " {ifname} ",
+					"tooltip-format-disconnected": "Disconnected",
+					"max-length": 50
+      },
+			"clock": {
+        "format": " {:%H:%M:%S}",
+        "format-alt": " {:%a %b %d}",
+        "tooltip": true,
+        "interval": 1
+      },
+			"temperature": {
+				"format-icons": [
+					"",
+					"",
+					"",
+					"",
+					""
+				],
+				"format": "{icon} {temperatureC}°C"
+			},
+      "tray": {
+        "icon-size": 16,
+        "spacing": 5
+      },
+     "custom/media": {
+        "format": "{}",
+        "exec": "$HOME/.config/waybar/get_media.sh",
+				"exec-if": "pgrep spotify",
+        "on-click": "$HOME/.config/waybar/play_pause_media.sh",
+        "on-scroll-up": "playerctl -p spotify previous",
+        "on-scroll-down": "playerctl -p spotify next",
+        "smooth-scrolling-threshold": 1.0,
+        "on-click-middle": "flatpak run com.spotify.Client",
+	      "min-length": 3,
+	      "max-length": 120,
+		    "interval": 1
+     },
+     "custom/pacman": {
+				"format": " {}",
+				"interval": 3600,                     // every hour
+				"exec": "$HOME/.config/waybar/updates.sh",       // # of updates
+				"exec-if": "exit 0",                  // always run; consider advanced run conditions
+				"on-click": "foot sh -c 'sudo zypper --verbose dup; flatpak --user update'; pkill -SIGRTMIN+8 waybar", // update system
+				"on-click-right": "$HOME/.config/waybar/updates.sh",       // # of updates
+				"signal": 8
+     },
+		 "custom/separator-right": {
+				"format": "",
+        "tooltip": false
+		 },
+		 "custom/separator-left": {
+		 		"format": "",
+        "tooltip": false
+		 },
+		 "custom/weather": {
+		 		"exec": "$HOME/.config/waybar/weather.sh",
+				"format": "Weather: {}",
+        "interval": 7200
+		 },
+		 "battery": {
+				"interval": 60,
+				"states": {
+				 "warning": 30,
+				 "critical": 15
+				},
+				"format": "{capacity}% {icon}",
+				"format-icons": [" ", " ", " ", " ", " "],
+				"max-length": 25
+		 }
+  }
+]

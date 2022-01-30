@@ -1,0 +1,70 @@
+#!/usr/bin/env bash
+
+# This is the example configuration file for river.
+#
+# If you wish to edit this, you will probably want to copy it to
+# $XDG_CONFIG_HOME/river/init or $HOME/.config/river/init first.
+#
+# See the river(1), riverctl(1), and rivertile(1) man pages for complete
+# documentation.
+# Setting some startup stuff
+
+###########
+# Interop #
+###########
+gsettings set org.gnome.desktop.default-applications.terminal exec foot.desktop
+VARIABLES="DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP XDG_SESSION_TYPE"
+riverctl spawn "systemctl --user import-environment ${VARIABLES:- --all}"
+riverctl spawn "/usr/libexec/polkit-gnome-authentication-agent-1"
+riverctl spawn "systemctl --user enable foot-server@.server"
+riverctl spawn "systemctl --user enable foot-server@.socket"
+
+###########################
+# SCREENCASTING AND SOUND #
+###########################
+riverctl spawn "exec /usr/libexec/xdg-desktop-portal-wlr -r"
+riverctl spawn "exec /usr/libexec/xdg-desktop-portal -r"
+
+##########
+# RELOAD #
+##########
+# Binding to reload the configuration (good for edits on bindings or adding new stuff
+riverctl map normal "Mod4" R spawn $HOME/.config/river/init
+
+###################
+# Startup Widgets #
+###################
+riverctl spawn "pkill river-tag-overl; sleep 1s; river-tag-overlay --background-colour 0x1E1E2E --border-colour 0x000000 --square-active-occupied-colour 0xABE9B3 --square-active-background-colour 0x000000 --square-active-border-colour 0x96CDFB --tag-amount 11"
+
+# riverctl spawn $HOME/.config/mako/mako.sh
+riverctl spawn "killall fnott; sleep 1s; fnott &"
+riverctl spawn $HOME/.config/river/swaybg.sh
+riverctl spawn $HOME/.config/river/wlsunset.sh
+riverctl spawn $HOME/.config/river/wobsock.sh
+riverctl spawn $HOME/.config/waybar/waybar.sh
+
+# Always last
+riverctl spawn $HOME/.config/river/bindings.sh
+
+pkill wl-paste
+wl-paste -t text --watch clipman store & disown
+
+# LOCK ME UP (kinky)
+riverctl spawn $HOME/.config/river/lock.sh
+
+#####################
+# Themes and Colors #
+#####################
+# Borders
+riverctl border-color-unfocused 0x608A78ff
+riverctl border-color-focused 0xEFB8CCff
+riverctl border-width 2
+riverctl background-color 0x1d2021
+
+gnome_schema="org.gnome.desktop.interface"
+gsettings set "$gnome_schema" gtk-theme "Catppuccin-green-dark-compact"
+gsettings set "$gnome_schema" icon-theme "Papirus-Dark"
+gsettings set "$gnome_schema" cursor-theme "Adwaita"
+gsettings set "$gnome_schema" font-name "VictorMono Nerd Font 10"
+
+riverctl spawn "sleep 5s; notify-send -t 20000 -a 'RiverWM' 'River has successfully started' 'Welcome!'"
