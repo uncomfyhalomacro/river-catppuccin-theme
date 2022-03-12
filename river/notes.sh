@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/bash
 
 shopt -s lastpipe
 
@@ -19,12 +19,16 @@ for i in "${NOTES[@]}"; do echo "$i"; done | sort | fzf -e -i --prompt='notes: '
 
 case "${answer}" in 
 	"Create new note")
-	command="source ~/.zshenv; kitty -o initial_window_width=640 -o initial_window_height=100 -o remember_window_size=no --class launcher newnotes.sh"
+	USEFUL_NOTES="$HOME/useful-notes"
+	echo -e "Name of note:"
+	read -r answer
+	[ -z "${answer}" ] && exit
+	command="source ~/.zshenv; foot nvim \"${USEFUL_NOTES}/${answer// /-}.md\""
 	setsid /bin/sh -c "${command}" >&/dev/null &
 	sleep 0.3s 
 	;;
 	*)
-	command="source ~/.zshenv; kitty nvim \"${answer}\""
+	command="source ~/.zshenv; foot nvim \"${answer}\""
 	setsid /bin/sh -c "${command}" >&/dev/null &
 	sleep 0.3s
 	;;
