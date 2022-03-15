@@ -121,7 +121,7 @@
 				"interval": 3600,                     // every hour
 				"exec": "$HOME/.config/waybar/updates.sh",       // # of updates
 				"exec-if": "exit 0",                  // always run; consider advanced run conditions
-				"on-click": "foot sh -c 'sudo zypper --verbose dup; flatpak --user update'; pkill -SIGRTMIN+8 waybar", // update system
+				"on-click": "$HOME/.config/waybar/manual_updates.sh", // update system
 				"on-click-right": "$HOME/.config/waybar/updates.sh",       // # of updates
 				"signal": 8
      },
